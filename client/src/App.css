@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+.App {
+  text-align: center;
+  font-weight: lighter;
+  font-family: 'Montserrat', sans-serif; 
+  /* font-family: 'Poppins', sans-serif; */
+  color: rgb(63, 63, 63);
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0;
+}
+header {
+  width: 100%;
+}
+header li {
+  /* float: left; */
+  margin: 1rem auto;
+
+}
+.landing-wrap {
+  margin: 0 5rem;
+}
+header {
+  height: 3rem;
+}
