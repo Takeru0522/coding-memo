@@ -1,19 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
-
-// Should be moved to userController
-router.get('/', async(req, res) => {
-    try {
-        const allUsers = await User.find()
-        res.json({
-            status: 200,
-            data: allUsers
-        });
-    } catch(err) {
-        res.send(err);
-    }
-})
+const bcrypt = require('bcryptjs');
 
 // Sign Up
 router.post('/signUp', async (req, res) => {
@@ -22,10 +10,26 @@ router.post('/signUp', async (req, res) => {
     newUser.password = req.body.password;
     newUser.email = req.body.email;
     try {
+        const foundUser = await User.findOne({ email: newUser.email });
+
+        if(foundUser){
+            return res.json({
+                status: 400,
+                msg: 'User already exists'
+            });
+        }
         const createdUser = await User.create(newUser);
         req.session.logged = true;
         req.session.username = createdUser.username;
 
+        // bcrypt
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(createdUser.password, salt, (err, hash) => {
+                createdUser.password = hash;
+                createdUser.save()
+            });
+        })
+        
         res.json({
             status: 200,
             data: createdUser
