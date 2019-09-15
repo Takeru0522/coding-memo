@@ -14,6 +14,7 @@ class Header extends Component {
                         <li>JavaScript</li>
                         <li>GitHub</li>
                         <li>Error</li>
+                        <li><a href="/auth">Login / Sign up</a></li>
                     </ul>
                 </div>
             </header>
